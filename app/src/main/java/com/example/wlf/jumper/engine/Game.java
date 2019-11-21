@@ -28,6 +28,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
     private Pontuacao pontuacao;
     private Som som;
     private Context context;
+    private boolean cktouch=false;
 
     public Game( Context context )
     {
@@ -64,7 +65,9 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
             canvas.drawBitmap(background, 0, 0, null);
 
             passaro.desenhaNo(canvas);
-            passaro.cai();
+            if(!cktouch)passaro.cai2();
+            else passaro.cai();
+            passaro.xmove();
 
             canos.desenhaNo(canvas);
             canos.move();
@@ -95,6 +98,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
     @Override
     public boolean onTouch( View view, MotionEvent motionEvent ) {
         passaro.pula();
+        cktouch=true;
         return false;
     }
 }

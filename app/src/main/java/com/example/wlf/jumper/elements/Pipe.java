@@ -64,7 +64,7 @@ public class Pipe {
 
     public void move()
     {
-        posicao -=5;
+        posicao -=10;
     }
 
     public boolean saiuDaTela()
