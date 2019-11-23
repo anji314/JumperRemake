@@ -12,7 +12,7 @@ public class Pipes {
 
     private static final int QUANTIDADE_DE_CANOS = 2;
     private static final int POSICAO_INICIAL = 400;
-    private static final int DISTANCIA_ENTRE_CANOS = 600;
+    private static final int DISTANCIA_ENTRE_CANOS = 800;
     private final List<Pipe> canos = new ArrayList<Pipe>();
     private Tela tela;
     private final Pontuacao pontuacao;

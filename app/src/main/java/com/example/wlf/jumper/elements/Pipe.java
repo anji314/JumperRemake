@@ -43,7 +43,7 @@ public class Pipe {
         this.prebottompipesize=0;
         this.pretoppipesize=0;
 
-        this.level=(this.passpipe/5)*2;
+        this.level=(this.passpipe/5);
 
         valorAleatorio();
 
@@ -59,14 +59,14 @@ public class Pipe {
         ///if(this.passpipe>0&&this.passpipe%5==0){
          //   this.level+=(2*(this.passpipe/5));
         //}
-        int gap=(10-level)*100;
+        int gap=(10-level)*150;
         int range =(int)(Math.random()*(tela.getAltura()-gap-TAMANHO_DO_CANO*2))+TAMANHO_DO_CANO;
 
         int topspot=range;
-        int bottomspot=range+gap;
+        int bottomspot=tela.getAltura()-(range+gap);
 
         this.alturaDoCanoInferior = bottomspot;
-        this.alturaDoCanoSuperior = topspot;
+        this.alturaDoCanoSuperior = topspot; //길이
 
 
     }
@@ -86,7 +86,7 @@ public class Pipe {
         }else{
             int preheight=-alturaDoCanoSuperior+defaultsize;
             if(preheight+this.pretoppipesize<0){
-                this.pretoppipesize+=((this.alturaDoCanoSuperior-defaultsize)/10);
+                this.pretoppipesize+=((this.alturaDoCanoSuperior-defaultsize)/20);
                 canvas.drawBitmap( canoSuperior, posicao, preheight+pretoppipesize, null );
             }else{
                 //this.pretoppipesize=this.alturaDoCanoSuperior;
@@ -109,12 +109,12 @@ public class Pipe {
             canvas.drawBitmap( canoInferior, posicao,tela.getAltura()-defaultsize, null );
         }else{
             int preheight=tela.getAltura()-defaultsize;
-            if(preheight-this.prebottompipesize>this.alturaDoCanoInferior){
+            if(preheight-this.prebottompipesize>tela.getAltura()-this.alturaDoCanoInferior){
                 this.prebottompipesize+=((this.alturaDoCanoInferior-defaultsize)/20);
                 canvas.drawBitmap( canoInferior, posicao,preheight-prebottompipesize , null );
             }else{
                 //this.pretoppipesize=this.alturaDoCanoSuperior;
-                canvas.drawBitmap(canoInferior, posicao, alturaDoCanoInferior, null);
+                canvas.drawBitmap(canoInferior, posicao,tela.getAltura()- alturaDoCanoInferior, null);
             }
 
         }
@@ -139,12 +139,12 @@ public class Pipe {
 
     public boolean temColisaoVerticalCom( Passaro passaro )
     {
-        return passaro.getAltura() - passaro.RAIO < this.alturaDoCanoSuperior ||
-                passaro.getAltura() + passaro.RAIO > this.alturaDoCanoInferior;
+        return false;// passaro.getAltura() - passaro.RAIO < this.alturaDoCanoSuperior ||
+                //passaro.getAltura() + passaro.RAIO > this.alturaDoCanoInferior;
     }
 
     public boolean temColisaoHorizontalCom( Passaro passaro )
     {
-        return this.posicao - passaro.X < passaro.RAIO;
+        return false;//this.posicao - passaro.X < passaro.RAIO;
     }
 }
