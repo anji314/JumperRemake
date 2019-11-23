@@ -10,9 +10,9 @@ import java.util.ListIterator;
 
 public class Pipes {
 
-    private static final int QUANTIDADE_DE_CANOS = 5;
+    private static final int QUANTIDADE_DE_CANOS = 2;
     private static final int POSICAO_INICIAL = 400;
-    private static final int DISTANCIA_ENTRE_CANOS = 250;
+    private static final int DISTANCIA_ENTRE_CANOS = 600;
     private final List<Pipe> canos = new ArrayList<Pipe>();
     private Tela tela;
     private final Pontuacao pontuacao;
@@ -28,7 +28,7 @@ public class Pipes {
         for( int i=0; i<QUANTIDADE_DE_CANOS; i++)
         {
             posicaoInicial += DISTANCIA_ENTRE_CANOS;
-            canos.add( new Pipe( tela, posicaoInicial, context ) );
+            canos.add( new Pipe( tela, posicaoInicial,this.pontuacao.passpipe(), context ) );//
         }
     }
 
@@ -50,7 +50,7 @@ public class Pipes {
                 pontuacao.aumenta();
                 iterator.remove();
                 Pipe outroCano =
-                        new Pipe( tela, getMaximo() + DISTANCIA_ENTRE_CANOS, context );
+                        new Pipe( tela, getMaximo() + DISTANCIA_ENTRE_CANOS,this.pontuacao.passpipe(), context );//
                 iterator.add( outroCano );
             }
         }

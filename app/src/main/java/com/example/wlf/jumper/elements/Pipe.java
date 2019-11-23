@@ -13,34 +13,62 @@ import com.example.wlf.jumper.graphics.Tela;
 public class Pipe {
 
     private final Paint VERDE = Cores.getCorDoCano();
-    private static final int TAMANHO_DO_CANO = 250;
+    private static final int TAMANHO_DO_CANO = 100;
     private static final int LARGURA_DO_CANO = 100;
-    private  final Bitmap canoInferior;
-    private  final Bitmap canoSuperior;
+
+   // private  final Bitmap canoInferior;
+   // private  final Bitmap canoSuperior;
+    private  Bitmap canoInferior;
+    private  Bitmap canoSuperior;
     private Tela tela;
     private Passaro passaro;
     private int alturaDoCanoInferior;
     private int alturaDoCanoSuperior;
     private int posicao;
+    private int passpipe;
+    private int level;
+    private final int dpipespeed=30;
+    private final int defaultsize=50;
+    private int pretoppipesize;
+    private int prebottompipesize;
     private Context context;
 
-    public Pipe(Tela tela, int posicao, Context context )
+
+    public Pipe(Tela tela, int posicao,int passpipe, Context context )
     {
         this.tela = tela;
         this.posicao = posicao;
         this.context = context;
+        this.passpipe=passpipe;
+        this.prebottompipesize=0;
+        this.pretoppipesize=0;
 
-        this.alturaDoCanoInferior = tela.getAltura() - TAMANHO_DO_CANO - valorAleatorio();
-        this.alturaDoCanoSuperior = 0 + TAMANHO_DO_CANO + valorAleatorio();
+        this.level=(this.passpipe/5)*2;
+
+        valorAleatorio();
 
         Bitmap bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.cano );
-        canoInferior = Bitmap.createScaledBitmap(bp, LARGURA_DO_CANO, alturaDoCanoInferior, false);
+        canoInferior = Bitmap.createScaledBitmap(bp, LARGURA_DO_CANO, alturaDoCanoInferior, false); //파일 이름, 넓이,높이.이미지선명성(사용할경우 out of memory발생가능)
         canoSuperior = Bitmap.createScaledBitmap(bp, LARGURA_DO_CANO, alturaDoCanoSuperior, false);
     }
 
-    private int valorAleatorio()
+
+    private void valorAleatorio()
     {
-        return (int) (Math.random() * 150);
+
+        ///if(this.passpipe>0&&this.passpipe%5==0){
+         //   this.level+=(2*(this.passpipe/5));
+        //}
+        int gap=(10-level)*100;
+        int range =(int)(Math.random()*(tela.getAltura()-gap-TAMANHO_DO_CANO*2))+TAMANHO_DO_CANO;
+
+        int topspot=range;
+        int bottomspot=range+gap;
+
+        this.alturaDoCanoInferior = bottomspot;
+        this.alturaDoCanoSuperior = topspot;
+
+
     }
 
     public void desenhaNo( Canvas canvas )
@@ -52,14 +80,46 @@ public class Pipe {
     private void desenhaCanoSuperiorNo( Canvas canvas )
     {
        // canvas.drawRect(posicao, 0,  posicao + LARGURA_DO_CANO,alturaDoCanoSuperior, VERDE);
-        canvas.drawBitmap( canoSuperior, posicao, 0, null );
+        int width=tela.getLargura();
+        if(posicao>=(width-(width/5))){
+            canvas.drawBitmap( canoSuperior, posicao, 0-alturaDoCanoSuperior+defaultsize, null );
+        }else{
+            int preheight=-alturaDoCanoSuperior+defaultsize;
+            if(preheight+this.pretoppipesize<0){
+                this.pretoppipesize+=((this.alturaDoCanoSuperior-defaultsize)/10);
+                canvas.drawBitmap( canoSuperior, posicao, preheight+pretoppipesize, null );
+            }else{
+                //this.pretoppipesize=this.alturaDoCanoSuperior;
+                canvas.drawBitmap( canoSuperior, posicao, 0, null );
+            }
+
+
+        }
+
+
+        //canvas.drawBitmap( canoSuperior, posicao, 0, null );
 
     }
 
     private void desenhaCanoInferiorNo( Canvas canvas )
     {
         //canvas.drawRect(posicao, alturaDoCanoInferior,posicao + LARGURA_DO_CANO, tela.getAltura(), VERDE );
-        canvas.drawBitmap(canoInferior, posicao, alturaDoCanoInferior, null);
+        int width=tela.getLargura();
+        if(posicao>=(width-(width/5))){
+            canvas.drawBitmap( canoInferior, posicao,tela.getAltura()-defaultsize, null );
+        }else{
+            int preheight=tela.getAltura()-defaultsize;
+            if(preheight-this.prebottompipesize>this.alturaDoCanoInferior){
+                this.prebottompipesize+=((this.alturaDoCanoInferior-defaultsize)/20);
+                canvas.drawBitmap( canoInferior, posicao,preheight-prebottompipesize , null );
+            }else{
+                //this.pretoppipesize=this.alturaDoCanoSuperior;
+                canvas.drawBitmap(canoInferior, posicao, alturaDoCanoInferior, null);
+            }
+
+        }
+
+      //  canvas.drawBitmap(canoInferior, posicao, alturaDoCanoInferior, null);
     }
 
     public void move()

@@ -18,4 +18,7 @@ public class Pontuacao {
     {
         canvas.drawText( String.valueOf( pontos ), 100, 100, BRANCO );
     }
+    public int passpipe(){
+        return pontos;
+    }
 }
