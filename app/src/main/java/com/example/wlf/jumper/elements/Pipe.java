@@ -29,7 +29,6 @@ public class Pipe {
     private int posicao;
     private int passpipe;
     private int level;
-    private final int dpipespeed=30;
     private final int defaultsize=50;
     private int pretoppipesize;
     private int prebottompipesize;
@@ -37,6 +36,7 @@ public class Pipe {
     private int bottomclock;
     private int topspeed;
     private int bottomspeed;
+    private boolean ckpassed;
     private Context context;
 
 
@@ -53,6 +53,7 @@ public class Pipe {
         this.bottomclock=0;
         this.topspeed= (int)(Math.random()*7) +6;
         this.bottomspeed= (int)(Math.random()*7) +6;
+        this.ckpassed=false;
 
 
         this.level=(this.passpipe/5)*2;
@@ -240,5 +241,12 @@ public class Pipe {
             return true;
         }else return false;
         //return this.posicao - passaro.getxspot() < passaro.RAIO;
+    }
+    public boolean checkpassed(Passaro passaro){
+        if(passaro.getxspot()-passaro.RAIO>getPosicao()&&!this.ckpassed){
+            this.ckpassed=true;
+            return true;
+        }else return false;
+
     }
 }

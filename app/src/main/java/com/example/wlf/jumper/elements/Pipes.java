@@ -17,6 +17,7 @@ public class Pipes {
     private Tela tela;
     private final Pontuacao pontuacao;
     private Context context;
+    private Passaro passaro;
 
     public Pipes(Tela tela, Pontuacao pontuacao, Context context ) {
         this.tela = tela;
@@ -45,9 +46,10 @@ public class Pipes {
             Pipe cano = (Pipe) iterator.next();
             cano.move();
 
+
             if(cano.saiuDaTela())
             {
-                pontuacao.aumenta();
+
                 iterator.remove();
                 Pipe outroCano =
                         new Pipe( tela, getMaximo() + DISTANCIA_ENTRE_CANOS,this.pontuacao.passpipe(), context );//
@@ -72,6 +74,9 @@ public class Pipes {
     {
         for ( Pipe cano : canos )
         {
+            if(cano.checkpassed(passaro)){
+                pontuacao.aumenta();
+            }
             if ( cano.temColisaoHorizontalCom(passaro) && cano.temColisaoVerticalCom(passaro) )
             {
                 return true;
