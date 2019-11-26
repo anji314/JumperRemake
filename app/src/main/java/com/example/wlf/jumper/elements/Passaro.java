@@ -10,7 +10,7 @@ import com.example.wlf.jumper.graphics.Tela;
 
 public class Passaro {
 
-    public static final int X = 100;
+    //public static final int X = 100;
     public static final  int RAIO = 80;
     private final int J=-35;
     private Tela tela;
@@ -28,7 +28,7 @@ public class Passaro {
         this.setAltura( tela.getAltura()/2 );
         this.setXspot(80);
 
-        Bitmap bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.passaro );
+        Bitmap bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.cat );
 
         passaro = bp.createScaledBitmap( bp, RAIO*2, RAIO*2, false );
         som = new Som(context);
