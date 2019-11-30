@@ -247,7 +247,7 @@ public class Pipe {
     public boolean temColisaoHorizontalCom( Passaro passaro )
     {
 
-        if( passaro.getxspot()-passaro.RAIO<=getPosicao()+100 &&
+        if( passaro.getxspot()-passaro.RAIO<=getPosicao()+LARGURA_DO_CANO &&
         passaro.getxspot()+passaro.RAIO>=getPosicao()||passaro.getAltura()>=tela.getAltura()){
             return true;
         }else return false;
