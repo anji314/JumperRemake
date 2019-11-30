@@ -48,7 +48,7 @@ public class Passaro {
 
     public void cai()
     {
-        boolean checouNoChao = getAltura() + RAIO > tela.getAltura();
+        boolean checouNoChao = getAltura()  > tela.getAltura();
 
         if ( ! checouNoChao )
         {
@@ -59,7 +59,7 @@ public class Passaro {
     }
     public void cai2()
     {
-        boolean checouNoChao = getAltura() + RAIO > tela.getAltura();
+        boolean checouNoChao = getAltura()  > tela.getAltura();
 
         if ( ! checouNoChao )
         {

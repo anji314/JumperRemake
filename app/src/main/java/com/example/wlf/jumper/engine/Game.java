@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import com.example.wlf.jumper.elements.back_ground;
+import com.example.wlf.jumper.elements.GameClear;
 import com.example.wlf.jumper.elements.Pipes;
 import com.example.wlf.jumper.elements.Passaro;
 import com.example.wlf.jumper.elements.Pontuacao;
@@ -21,7 +23,8 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
     private boolean isRunning = true;
     private final SurfaceHolder holder = getHolder();
     private Tela tela;
-    private Bitmap background;
+    //private Bitmap background;
+    private back_ground BG;
     private Pipes canos;
     private Canvas canvas;
     private Passaro passaro;
@@ -45,8 +48,10 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
         this.passaro = new Passaro(tela, context);
         this.pontuacao = new Pontuacao();
         this.canos = new Pipes( tela, pontuacao, context );
-        Bitmap back = BitmapFactory.decodeResource( getResources(), R.drawable.background );
-        this.background = Bitmap.createScaledBitmap( back, back.getWidth(), tela.getAltura(), false );
+        this.BG =new back_ground(tela,context);
+
+        //Bitmap back = BitmapFactory.decodeResource( getResources(), R.drawable.background );
+        //this.background = Bitmap.createScaledBitmap( back, back.getWidth(), tela.getAltura(), false );
         //this.setBackgroundResource(R.drawable.background);
         som = new Som(context);
     }
@@ -61,8 +66,11 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
             }
 
             canvas = holder.lockCanvas();
+            BG.update();
 
-            canvas.drawBitmap(background, 0, 0, null);
+            BG.drawbg(canvas);
+
+            //canvas.drawBitmap(background, 0, 0, null);
 
             passaro.desenhaNo(canvas);
             if(!cktouch)passaro.cai2();
@@ -73,8 +81,12 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
             canos.move();
 
             pontuacao.desenhaNo(canvas);
+            if(pontuacao.passhurdlenum()>=40){//게임 클리어
+                new GameClear(tela).drawClear(canvas);
+                isRunning=false;
+            }
 
-            if ( new VerificadorDeColisao(passaro, canos).temColisao() )
+            if ( new VerificadorDeColisao(passaro, canos).temColisao() ) //게임 오버
             {
                 som.tocaSom(Som.COLISAO);
                 new GameOver(tela).desenhaNo(canvas);

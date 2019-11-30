@@ -14,6 +14,8 @@ public class Pontuacao {
         pontos++;
     }
 
+    public int passhurdlenum(){return pontos;}
+
     public void desenhaNo( Canvas canvas )
     {
         canvas.drawText( String.valueOf( pontos ), 100, 100, BRANCO );

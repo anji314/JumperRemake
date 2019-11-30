@@ -63,9 +63,9 @@ public class Pipe {
         this.pretoplength=defaultsize;
         this.prebottomlength=tela.getAltura()-defaultsize;
         if(choicehurlde==1){
-            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle1 );
+            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_1 );
         }else if(choicehurlde==2){
-            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle2 );
+            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_2 );
         }
 
       //  Bitmap bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.cano );
@@ -113,10 +113,12 @@ public class Pipe {
                     this.pretoppipesize += ((this.alturaDoCanoSuperior - defaultsize) / 15);
                     this.pretoplength=defaultsize+ pretoppipesize;
                     canvas.drawBitmap(canoSuperior, posicao, preheight + pretoppipesize, null);
+
                 } else {
                     //this.pretoppipesize=this.alturaDoCanoSuperior;
                     this.pretoplength=alturaDoCanoSuperior+defaultsize;
                     canvas.drawBitmap(canoSuperior, posicao, 0, null);
+
                 }
             }else{
                 if(this.topclock==1){
@@ -226,18 +228,20 @@ public class Pipe {
 
     public boolean temColisaoVerticalCom( Passaro passaro )
     {
-        if(passaro.getAltura() - passaro.RAIO < this.pretoplength ||
-               passaro.getAltura() + passaro.RAIO > this.prebottomlength){
+        int yspot=passaro.getAltura();
+        if(yspot< this.pretoplength ||
+                yspot+passaro.RAIO-20> this.prebottomlength||yspot >=tela.getAltura() ){
             return true;
         }else return false;
 
     }
 
+
     public boolean temColisaoHorizontalCom( Passaro passaro )
     {
 
         if( passaro.getxspot()-passaro.RAIO<=getPosicao()+100 &&
-        passaro.getxspot()+passaro.RAIO>=getPosicao()){
+        passaro.getxspot()+passaro.RAIO>=getPosicao()||passaro.getAltura()>=tela.getAltura()){
             return true;
         }else return false;
         //return this.posicao - passaro.getxspot() < passaro.RAIO;

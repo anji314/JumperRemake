@@ -12,13 +12,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-        FrameLayout container = (FrameLayout) findViewById(R.id.container);
+            FrameLayout container = (FrameLayout) findViewById(R.id.container);
 
-        game = new Game(this);
-        container.addView(game);
+            game = new Game(this);
+            container.addView(game);
     }
 
     @Override
