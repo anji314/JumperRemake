@@ -14,7 +14,7 @@ public class Pipe {
 
     private final Paint VERDE = Cores.getCorDoCano();
     private static final int TAMANHO_DO_CANO = 200;
-    private static final int LARGURA_DO_CANO = 100;
+    private  int LARGURA_DO_CANO = 100;
 
    // private  final Bitmap canoInferior;
    // private  final Bitmap canoSuperior;
@@ -42,7 +42,7 @@ public class Pipe {
 
     public Pipe(Tela tela, int posicao,int passpipe, Context context )
     {
-        int choicehurlde =(int)(Math.random()*2)+1;
+        int choicehurlde =(int)(Math.random()*3)+1;
         this.tela = tela;
         this.posicao = posicao;
         this.context = context;
@@ -54,6 +54,7 @@ public class Pipe {
         this.topspeed= (int)(Math.random()*7) +6;
         this.bottomspeed= (int)(Math.random()*7) +6;
         this.ckpassed=false;
+        int tempwidth=0;
 
 
         this.level=(this.passpipe/5)*2;
@@ -66,11 +67,17 @@ public class Pipe {
             bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_1 );
         }else if(choicehurlde==2){
             bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_2 );
+        }else if(choicehurlde==3){
+            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.dasol);
+            LARGURA_DO_CANO=400;
+
         }
 
       //  Bitmap bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.cano );
-        canoInferior = Bitmap.createScaledBitmap(bp, LARGURA_DO_CANO, alturaDoCanoInferior, false); //파일 이름, 넓이,높이.이미지선명성(사용할경우 out of memory발생가능)
-        canoSuperior = Bitmap.createScaledBitmap(bp, LARGURA_DO_CANO, alturaDoCanoSuperior, false);
+
+            canoInferior = Bitmap.createScaledBitmap(bp, LARGURA_DO_CANO, alturaDoCanoInferior, false); //파일 이름, 넓이,높이.이미지선명성(사용할경우 out of memory발생가능)
+            canoSuperior = Bitmap.createScaledBitmap(bp, LARGURA_DO_CANO, alturaDoCanoSuperior, false);
+
     }
 
 

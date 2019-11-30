@@ -14,7 +14,7 @@ public class back_ground {
     public Bitmap BG;
 
     public back_ground(Tela tela,Context context){
-         Bitmap bg=BitmapFactory.decodeResource(context.getResources(),R.drawable.background3);
+         Bitmap bg =BitmapFactory.decodeResource(context.getResources(),R.drawable.background);
          this.BG = Bitmap.createScaledBitmap( bg, bg.getWidth(), tela.getAltura(), false );
     }
 
