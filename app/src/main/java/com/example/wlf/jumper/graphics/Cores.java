@@ -35,10 +35,21 @@ public class Cores {
     public static Paint getCorDoGameOver() {
         Paint vermelho = new Paint();
         vermelho.setColor(0xFFFF0000);
-        vermelho.setTextSize(50);
+        vermelho.setTextSize(100);
         vermelho.setTypeface( Typeface.DEFAULT_BOLD );
         vermelho.setShadowLayer(2, 3, 3, 0xFF000000 );
 
         return vermelho;
     }
+
+    public static Paint pntgameclear() {
+        Paint vermelho = new Paint();
+        vermelho.setColor(0xFF006600);
+        vermelho.setTextSize(100);
+        vermelho.setTypeface( Typeface.DEFAULT_BOLD );
+        vermelho.setShadowLayer(2, 3, 3, 0xFF000000 );
+
+        return vermelho;
+    }
+
 }

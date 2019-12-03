@@ -45,6 +45,12 @@ public class Passaro {
             setXspot(getxspot()+3);
         }
     }
+    public void xmove_end(){
+        boolean checkcenter=getxspot()-RAIO<=tela.getLargura();
+        if(checkcenter){
+            setXspot(getxspot()+5);
+        }
+    }
 
     public void cai()
     {

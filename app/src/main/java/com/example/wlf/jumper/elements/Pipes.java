@@ -12,24 +12,27 @@ public class Pipes {
 
     private static final int QUANTIDADE_DE_CANOS = 2;
     private static final int POSICAO_INICIAL = 400;
-    private static final int DISTANCIA_ENTRE_CANOS = 1000;
+    private static final int DISTANCIA_ENTRE_CANOS = 800;
     private final List<Pipe> canos = new ArrayList<Pipe>();
     private Tela tela;
     private final Pontuacao pontuacao;
     private Context context;
     private Passaro passaro;
-
+    private int makepipe;
     public Pipes(Tela tela, Pontuacao pontuacao, Context context ) {
         this.tela = tela;
         this.pontuacao = pontuacao;
         this.context = context;
+        this.makepipe=0;
 
         int posicaoInicial = POSICAO_INICIAL;
 
         for( int i=0; i<QUANTIDADE_DE_CANOS; i++)
         {
             posicaoInicial += DISTANCIA_ENTRE_CANOS;
-            canos.add( new Pipe( tela, posicaoInicial,this.pontuacao.passpipe(), context ) );//
+            this.makepipe++;
+            canos.add(new Pipe(tela, posicaoInicial, this.pontuacao.passpipe(), context));//
+
         }
     }
 
@@ -51,9 +54,12 @@ public class Pipes {
             {
 
                 iterator.remove();
-                Pipe outroCano =
-                        new Pipe( tela, getMaximo() + DISTANCIA_ENTRE_CANOS,this.pontuacao.passpipe(), context );//
-                iterator.add( outroCano );
+                if(this.makepipe<40) {
+                    this.makepipe++;
+                    Pipe outroCano =
+                            new Pipe(tela, getMaximo() + DISTANCIA_ENTRE_CANOS, this.pontuacao.passpipe(), context);//
+                    iterator.add(outroCano);
+                }
             }
         }
     }
@@ -64,7 +70,7 @@ public class Pipes {
 
         for( Pipe cano : canos )
         {
-            maximo = Math.max( cano.getPosicao(), maximo );
+            maximo = Math.max( cano.getPosicao()+cano.LARGURA_DO_CANO, maximo );
         }
 
         return maximo;

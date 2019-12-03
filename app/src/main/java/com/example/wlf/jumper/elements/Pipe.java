@@ -14,7 +14,7 @@ public class Pipe {
 
     private final Paint VERDE = Cores.getCorDoCano();
     private static final int TAMANHO_DO_CANO = 200;
-    private  int LARGURA_DO_CANO = 100;
+    public int LARGURA_DO_CANO = 100;
 
    // private  final Bitmap canoInferior;
    // private  final Bitmap canoSuperior;
@@ -42,7 +42,7 @@ public class Pipe {
 
     public Pipe(Tela tela, int posicao,int passpipe, Context context )
     {
-        int choicehurlde =(int)(Math.random()*3)+1;
+        int choicehurlde =(int)(Math.random()*5)+1;
         this.tela = tela;
         this.posicao = posicao;
         this.context = context;
@@ -59,24 +59,36 @@ public class Pipe {
 
         this.level=(this.passpipe/5)*2;
         Bitmap bp=null;
+        Bitmap bp_re=null;
 
         valorAleatorio();
         this.pretoplength=defaultsize;
         this.prebottomlength=tela.getAltura()-defaultsize;
         if(choicehurlde==1){
             bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_1 );
+            bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_1 );
         }else if(choicehurlde==2){
             bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_2 );
+            bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_2 );
         }else if(choicehurlde==3){
-            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.dasol);
-            LARGURA_DO_CANO=400;
+            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_h1);
+            bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_h1re);
+            LARGURA_DO_CANO=500;
 
+        }else if(choicehurlde==4){
+            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr1 );
+            bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr1re);
+            LARGURA_DO_CANO=200;
+        }else if(choicehurlde==5){
+            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr2 );
+            bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr2re);
+            LARGURA_DO_CANO=200;
         }
 
       //  Bitmap bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.cano );
 
             canoInferior = Bitmap.createScaledBitmap(bp, LARGURA_DO_CANO, alturaDoCanoInferior, false); //파일 이름, 넓이,높이.이미지선명성(사용할경우 out of memory발생가능)
-            canoSuperior = Bitmap.createScaledBitmap(bp, LARGURA_DO_CANO, alturaDoCanoSuperior, false);
+            canoSuperior = Bitmap.createScaledBitmap(bp_re, LARGURA_DO_CANO, alturaDoCanoSuperior, false);
 
     }
 
@@ -181,8 +193,8 @@ public class Pipe {
             }else{
 
                 //this.pretoppipesize=this.alturaDoCanoSuperior;
-                this.prebottomlength=tela.getAltura()-alturaDoCanoInferior;
-                canvas.drawBitmap(canoInferior, posicao,tela.getAltura()- alturaDoCanoInferior, null);
+                this.prebottomlength=tela.getAltura()-this.alturaDoCanoInferior;
+                canvas.drawBitmap(canoInferior, posicao,tela.getAltura()- this.alturaDoCanoInferior, null);
             }
             }else{
                 if(this.bottomclock==1){
@@ -192,8 +204,8 @@ public class Pipe {
                         this.prebottomlength=tela.getAltura()-defaultsize-this.prebottompipesize;
                         canvas.drawBitmap( canoInferior, posicao,preheight-prebottompipesize , null );
                     }else{
-                        this.prebottomlength=tela.getAltura()-alturaDoCanoInferior;
-                        canvas.drawBitmap(canoInferior, posicao,tela.getAltura()- alturaDoCanoInferior, null);
+                        this.prebottomlength=tela.getAltura()-this.alturaDoCanoInferior;
+                        canvas.drawBitmap(canoInferior, posicao,tela.getAltura()- this.alturaDoCanoInferior, null);
                         this.bottomclock=0;
                     }
 
@@ -237,7 +249,7 @@ public class Pipe {
     {
         int yspot=passaro.getAltura();
         if(yspot< this.pretoplength ||
-                yspot+passaro.RAIO-20> this.prebottomlength||yspot >=tela.getAltura() ){
+                yspot+passaro.RAIO> this.prebottomlength+10||yspot >=tela.getAltura() ){
             return true;
         }else return false;
 
@@ -254,7 +266,7 @@ public class Pipe {
         //return this.posicao - passaro.getxspot() < passaro.RAIO;
     }
     public boolean checkpassed(Passaro passaro){
-        if(passaro.getxspot()-passaro.RAIO>getPosicao()&&!this.ckpassed){
+        if(passaro.getxspot()-passaro.RAIO>getPosicao()+LARGURA_DO_CANO&&!this.ckpassed){
             this.ckpassed=true;
             return true;
         }else return false;

@@ -21,7 +21,8 @@ public class GameOver {
     {
         String gameOver = "Game Over";
         int centroHorizontal = centralizaTexto( gameOver );
-
+        //Paint pnt=new Paint();
+       // pnt.setTextSize(20);
         canvas.drawText( gameOver, centroHorizontal,tela.getAltura() / 2, VERMELHO );
     }
 

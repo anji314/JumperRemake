@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.os.Handler;
+import android.os.Message;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -32,15 +34,17 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
     private Som som;
     private Context context;
     private boolean cktouch=false;
+    private Handler mainHandler;
 
-    public Game( Context context )
+    public Game( Context context, Handler mainHandler  )
     {
         super( context );
         this.context = context;
         tela = new Tela( context );
-
+        this.BG =new back_ground(tela,context);
         inicializaElementos();
         setOnTouchListener( this );
+        this.mainHandler = mainHandler;
     }
 
     private void inicializaElementos()
@@ -48,8 +52,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
         this.passaro = new Passaro(tela, context);
         this.pontuacao = new Pontuacao();
         this.canos = new Pipes( tela, pontuacao, context );
-        this.BG =new back_ground(tela,context);
-
+        BG.setX(0);
         //Bitmap back = BitmapFactory.decodeResource( getResources(), R.drawable.background );
         //this.background = Bitmap.createScaledBitmap( back, back.getWidth(), tela.getAltura(), false );
         //this.setBackgroundResource(R.drawable.background);
@@ -72,18 +75,34 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
 
             //canvas.drawBitmap(background, 0, 0, null);
 
-            passaro.desenhaNo(canvas);
+
             if(!cktouch)passaro.cai2();
             else passaro.cai();
-            passaro.xmove();
 
-            canos.desenhaNo(canvas);
-            canos.move();
+
+            if(pontuacao.passhurdlenum()>=40&&passaro.getxspot()<tela.getLargura()){
+                passaro.xmove_end();//게임 클리어
+
+                canos.move();
+                canos.desenhaNo(canvas);
+            }else{
+                passaro.xmove();
+
+                canos.move();
+                canos.desenhaNo(canvas);
+
+            }
+            passaro.desenhaNo(canvas);
 
             pontuacao.desenhaNo(canvas);
-            if(pontuacao.passhurdlenum()>=40){//게임 클리어
+
+            if(pontuacao.passhurdlenum()>=40&&passaro.getxspot()>tela.getLargura()){
+
                 new GameClear(tela).drawClear(canvas);
                 isRunning=false;
+                Message msg = Message.obtain();
+                msg.what = 0;
+                mainHandler.sendMessage(msg);
             }
 
             if ( new VerificadorDeColisao(passaro, canos).temColisao() ) //게임 오버
@@ -91,6 +110,9 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
                 som.tocaSom(Som.COLISAO);
                 new GameOver(tela).desenhaNo(canvas);
                 isRunning = false;
+                Message msg = Message.obtain();
+                msg.what = 0;
+                mainHandler.sendMessage(msg);
             }
 
             holder.unlockCanvasAndPost(canvas);
@@ -112,5 +134,11 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
         passaro.pula();
         cktouch=true;
         return false;
+    }
+    public void resetGame(){
+        tela = new Tela( context );
+        inicializaElementos();  //게임 시작하고 초기화하고 초기화시 필요한 객체 생성
+        isRunning = true;
+
     }
 }
