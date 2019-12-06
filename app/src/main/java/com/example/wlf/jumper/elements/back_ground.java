@@ -7,7 +7,7 @@ import android.graphics.Bitmap;
 import com.example.wlf.jumper.graphics.Tela;
 
 public class back_ground {
-    static final int Scroll_Speed=-8;
+    static final int Scroll_Speed=-6;
     private float x_scroll=0;
     private int x=0,y=0;
     private int displaywidth;

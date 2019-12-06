@@ -12,7 +12,7 @@ public class Pipes {
 
     private static final int QUANTIDADE_DE_CANOS = 2;
     private static final int POSICAO_INICIAL = 400;
-    private static final int DISTANCIA_ENTRE_CANOS = 800;
+    private static final int DISTANCIA_ENTRE_CANOS = 1000;
     private final List<Pipe> canos = new ArrayList<Pipe>();
     private Tela tela;
     private final Pontuacao pontuacao;
@@ -80,9 +80,9 @@ public class Pipes {
     {
         for ( Pipe cano : canos )
         {
-            if(cano.checkpassed(passaro)){
-                pontuacao.aumenta();
-            }
+            if(cano.checkpassed(passaro)){ //여기 주석처리
+               pontuacao.aumenta();
+           }
             if ( cano.temColisaoHorizontalCom(passaro) && cano.temColisaoVerticalCom(passaro) )
             {
                 return true;

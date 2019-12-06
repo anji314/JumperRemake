@@ -12,7 +12,7 @@ public class Passaro {
 
     //public static final int X = 100;
     public static final  int RAIO = 80;
-    private final int J=-35;
+    private final int J=-40;
     private Tela tela;
     private Bitmap passaro;
     private Som som;

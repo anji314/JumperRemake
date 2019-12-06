@@ -42,7 +42,7 @@ public class Pipe {
 
     public Pipe(Tela tela, int posicao,int passpipe, Context context )
     {
-        int choicehurlde =(int)(Math.random()*5)+1;
+        int choicehurlde =(int)(Math.random()*7)+1;
         this.tela = tela;
         this.posicao = posicao;
         this.context = context;
@@ -71,18 +71,25 @@ public class Pipe {
             bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_2 );
             bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.hurdle_2 );
         }else if(choicehurlde==3){
-            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_h1);
-            bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_h1re);
-            LARGURA_DO_CANO=500;
-
-        }else if(choicehurlde==4){
             bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr1 );
             bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr1re);
             LARGURA_DO_CANO=200;
-        }else if(choicehurlde==5){
+        }else if(choicehurlde==4){
             bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr2 );
             bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr2re);
             LARGURA_DO_CANO=200;
+        }else if(choicehurlde==5){
+            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr3 );
+            bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr3re);
+            LARGURA_DO_CANO=200;
+        }else if(choicehurlde==6){
+            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr4 );
+            bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_tr4re);
+            LARGURA_DO_CANO=200;
+        }else if(choicehurlde==7){
+            bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_snm );
+            bp_re = BitmapFactory.decodeResource( context.getResources(), R.drawable.ob_snmre);
+            LARGURA_DO_CANO=300;
         }
 
       //  Bitmap bp = BitmapFactory.decodeResource( context.getResources(), R.drawable.cano );
@@ -267,6 +274,7 @@ public class Pipe {
     }
     public boolean checkpassed(Passaro passaro){
         if(passaro.getxspot()-passaro.RAIO>getPosicao()+LARGURA_DO_CANO&&!this.ckpassed){
+
             this.ckpassed=true;
             return true;
         }else return false;

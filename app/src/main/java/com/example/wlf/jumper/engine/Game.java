@@ -77,7 +77,9 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener 
 
 
             if(!cktouch)passaro.cai2();
-            else passaro.cai();
+            else{
+                passaro.cai();
+            }
 
 
             if(pontuacao.passhurdlenum()>=40&&passaro.getxspot()<tela.getLargura()){
