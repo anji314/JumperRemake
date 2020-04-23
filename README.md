@@ -12,6 +12,8 @@
 - 난이도 추가   
     -> 장애물 5개를 넘을 때마다 통과할 수 있는 장애물 사이의 공간이 줄어들어 난이도의 개념 도입.
 - 종로버튼 과 재시작 버튼
+
+=> [자세한 설명 보기](https://github.com/anji314/JumperRemake/blob/JumperRemake/JUMPER.pdf)
 <br><br><br>
 ## 실행 화면
 
