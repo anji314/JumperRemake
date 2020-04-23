@@ -1,7 +1,7 @@
 # 치삼이 점퍼 게임
 
-기존의 오픈소스 파일인 jumper게임을 시나리오를 새롭게 하여 개발하였다.     
-[기존 게임 소스](https://github.com/anji314/jumper)
+기존의 오픈소스 파일인 jumper게임을 시나리오를 새롭게 하여 개발하였다.
+[기존 게임 소스](https://github.com/anji314/jumper) 
 
 ### 새롭게 구현한 기능
 
