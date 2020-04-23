@@ -13,4 +13,9 @@
     -> 장애물 5개를 넘을 때마다 통과할 수 있는 장애물 사이의 공간이 줄어들어 난이도의 개념 도입.
 - 종로버튼 과 재시작 버튼
 
-
+<p>
+ <img src="start.png" width="300"/>
+ <img src="exit.png" width="300"/></P>
+ <p>
+ <img src="play.png" width="300"/>
+ <img src="over.png" width="300"/></p>
